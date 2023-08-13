@@ -1,0 +1,25 @@
+import random
+import math
+
+
+def randomness(m, n):
+    x = (m ** (n - 1) - 1) / n
+    s = ''
+    for _ in range(n - 1):
+        s += str(random.randint(0, m - 1))
+    n = int(s, m)
+    if n != m ** (n - 1) - 1:
+        return math.floor(n / x)
+    else:
+        randomness(m, n)
+
+
+current_base, wanted_base = 8, 3
+trials = 1000000
+counts = [0] * wanted_base
+for _ in range(trials):
+    j = randomness(current_base, wanted_base)
+    if j != wanted_base and j or j == 0:
+        counts[j] += 1
+freq = [round(c / trials, 3) for c in counts]
+print(freq)
